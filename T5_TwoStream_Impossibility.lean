@@ -105,6 +105,7 @@ theorem faithful_implies_V_determined {m a b kG kP kV : Nat}
   intro x y hGxy hPxy
   have hxy : x = y := faithful_joint_determinacy f₁ f₂ G P hGFaith hPFaith hInj x y hGxy hPxy
   subst hxy
+  rfl
 
 -- ============================================================
 -- Section 3: Main Impossibility Theorem

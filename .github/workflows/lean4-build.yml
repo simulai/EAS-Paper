@@ -9,15 +9,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Setup Lean4
-      uses: leanprover/lean4-action@v1
-      with:
-        lean4-version: v4.7.0
-    
-    - name: Verify Lean4 formalization
+
+    - name: Install elan (Lean version manager)
       run: |
-        lean EAS-Paper/T5_TwoStream_Impossibility.lean
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:v4.7.0
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+    - name: Verify Lean 4 installation
+      run: |
+        lean --version
+        lake --version
+
+    - name: Compile Lean 4 formalization
+      run: |
+        lean T5_TwoStream_Impossibility.lean

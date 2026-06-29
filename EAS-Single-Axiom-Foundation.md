@@ -1107,7 +1107,7 @@ This insight, grounded in a single axiom and verified by machine, is our contrib
 - Spivak, D. I. (2014). *Database Queries and Constraints via Lifting Problems*. Mathematical Structures in Computer Science.
 - Shannon, C. E. (1948). A mathematical theory of communication. *Bell System Technical Journal*, 27(3), 379-423.
 - Wang, H. (2025). COH as Unified Theoretical Model for Intelligence. preprints.org.
-- The Lean 4 formalization source code is available at: [GitHub repository URL]
+- The Lean 4 formalization source code is available at: https://github.com/simulai/EAS-Paper
 
 ---
 

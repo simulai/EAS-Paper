@@ -426,7 +426,7 @@ The critical metric is **orthogonality**: the cosine similarity between the outp
 
 **Limitations.** (1) The Verifier's multiplicative modulation is near-saturated ($\text{mean}(V) \approx 0.97$), indicating that V has not yet learned to dynamically respond to regime shifts—future work with larger environments and explicit regime-detection objectives may activate this pathway. (2) Overall accuracy differences are small ($<1\%$), consistent with the prediction that the trisection advantage manifests primarily in *structural decodability* rather than raw performance. (3) The SRCA environment, while finite and discrete (matching the $\text{Fin } m$ formalization), is a minimal test case; stronger validation would require more complex environments (e.g., multi-layer CA, partial observability, or continuous-state domains).
 
-**Connection to theory.** This result provides preliminary empirical support for the claim that $\chi \geq 3$ is not merely sufficient but *necessary* for proper credit assignment under distribution shift. The orthogonality metric directly operationalizes Condition 2 of T5a ($I(Z_V; W \mid Z_G, Z_E) > 0$): high orthogonality implies that the Verifier's signal is informationally independent of the Generator-Executor pair, even when all three share the same input space. The code and data are available at [https://github.com/simulai/EAS-Paper](https://github.com/simulai/EAS-Paper).
+**Connection to theory.** This result provides preliminary empirical support for the claim that $\chi \geq 3$ is not merely sufficient but *necessary* for proper credit assignment under distribution shift. The orthogonality metric directly operationalizes Condition 2 of T5a ($I(Z_V; W \mid Z_G, Z_E) > 0$): high orthogonality implies that the Verifier's signal is informationally independent of the Generator-Executor pair, even when all three share the same input space. The code and data are available at [GitHub repository URL].
 
 #### 4.6.7 Engineering Validation: Multiplicative Gain and Functional Decodability
 
@@ -1113,13 +1113,20 @@ This insight, grounded in a single axiom and verified by machine, is our contrib
 
 ## Appendix A: Lean 4 Formalization Summary
 
-The Lean 4 project consists of 11 source files implementing the complete derivation chain. Key formalization choices:
+The Lean 4 formalization implements the complete derivation chain from T0 through T7. The complete project consists of 11 source files (~800 lines of proof), implementing all theorems with a single axiom (`no_dynamical_isomorphism`) and zero `sorry` placeholders.
 
+**GitHub repository:** https://github.com/simulai/EAS-Paper
+
+The repository includes:
+- `T5_TwoStream_Impossibility.lean`: The Two-Stream Impossibility theorem (T5), automatically verified via GitHub Actions on every commit
+- Full project source available for manual verification
+
+Key formalization choices:
 - **Finite types:** All spaces are `Fin m` for concrete `m : Nat`
 - **No external dependencies:** Only Lean 4 standard library
 - **Axiom count:** 1 (`no_dynamical_isomorphism`)
-- **Total lines of proof:** ~800 lines across T0–T6
-- **Build verification:** `lake build` passes on Lean 4.7.0
+- **Total lines of proof:** ~800 lines across T0–T7
+- **Build verification:** Passes on Lean 4.7.0 (T5 verified via GitHub Actions)
 
 ## Appendix B: Glossary of Key Terms
 

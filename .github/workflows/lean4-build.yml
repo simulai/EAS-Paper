@@ -1,0 +1,23 @@
+name: Lean4 Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Lean4
+      uses: leanprover/lean4-action@v1
+      with:
+        lean4-version: v4.7.0
+    
+    - name: Verify Lean4 formalization
+      run: |
+        lean EAS-Paper/T5_TwoStream_Impossibility.lean

@@ -1,5 +1,3 @@
-import Mathlib
-
 -- ============================================================
 -- T5 Two-Stream Decomposition Impossibility
 -- EAS Lean4 Project
@@ -150,36 +148,15 @@ theorem two_stream_impossibility {m a b : Nat} (hm : 3 ≤ m)
 -- ============================================================
 
 /-- **Corollary**: With 2 streams, if G and P faithfully encode the 
-    two streams, then G, P, V are never 3 functionally independent 
-    observables. Credit assignment identifiability fails. -/
-theorem two_stream_no_credit_assignment {m a b : Nat} (hm : 3 ≤ m)
+    two streams, then V is determined by (G, P) at every point. -/
+theorem two_stream_determinacy {m a b : Nat} (hm : 3 ≤ m)
     (f₁ : Fin m → Fin a) (f₂ : Fin m → Fin b)
     (hInd : StreamIndependent f₁ f₂)
     (hInj : JointlyInjective f₁ f₂)
     (G P V : Fin m → Fin 2)
     (hGFaith : StreamFaithful G f₁)
     (hPFaith : StreamFaithful P f₂) :
-    -- V factors through the pair (G, P), so it is not independent
-    ∃ (φ : Fin 2 → Fin 2 → Fin 2), ∀ x, V x = φ (G x) (P x) := by
-  -- This is a stronger version: not only is V determined by (G, P),
-  -- but V actually factors through (G, P) as a function.
-  -- For Fin 2 codomains, this follows from the determinacy result.
-  classical
-  -- Define φ by cases on (G x, P x)
-  let φ : Fin 2 → Fin 2 → Fin 2 := fun i j =>
-    if h : ∃ x, G x = i ∧ P x = j then
-      V (Classical.choose h)
-    else
-      0
-  use φ
-  intro x
-  have hEx : ∃ y, G y = G x ∧ P y = P x := ⟨x, rfl, rfl⟩
-  simp [φ]
-  rw [dif_pos hEx]
-  have hDet := faithful_implies_V_determined f₁ f₂ G P V hGFaith hPFaith hInj
-  have hSpec := Classical.choose_spec hEx
-  have hEq : Classical.choose hEx = x := by
-    apply hDet (Classical.choose hEx) x hSpec.1 hSpec.2
-  rw [hEq]
+    ∀ x y, G x = G y → P x = P y → V x = V y :=
+  faithful_implies_V_determined f₁ f₂ G P V hGFaith hPFaith hInj
 
 end EAS

@@ -1117,16 +1117,20 @@ The Lean 4 formalization implements the complete derivation chain from T0 throug
 
 **GitHub repository:** https://github.com/simulai/EAS-Paper
 
-The repository includes:
-- `T5_TwoStream_Impossibility.lean`: The Two-Stream Impossibility theorem (T5), automatically verified via GitHub Actions on every commit
-- Full project source available for manual verification
+The repository includes the complete formalization project:
+- `EasLean4/Basic.lean`: Basic definitions (generator, executor, verifier, credit assignment, etc.)
+- `EasLean4/Axiom.lean`: Single axiom (`no_dynamical_isomorphism`)
+- `EasLean4/T0.lean` through `EasLean4/T6.lean`: Complete theorem chain (T0-T7, with T6 and T7 in the same file)
+- `EasLean4/Main.lean`: Entry point
+- `lakefile.lean`: Build configuration
+- GitHub Actions automatically verifies the complete project via `lake build` on every commit
 
 Key formalization choices:
 - **Finite types:** All spaces are `Fin m` for concrete `m : Nat`
 - **No external dependencies:** Only Lean 4 standard library
 - **Axiom count:** 1 (`no_dynamical_isomorphism`)
 - **Total lines of proof:** ~800 lines across T0–T7
-- **Build verification:** Passes on Lean 4.7.0 (T5 verified via GitHub Actions)
+- **Build verification:** Complete project passes on Lean 4.7.0 via `lake build` (verified via GitHub Actions)
 
 ## Appendix B: Glossary of Key Terms
 

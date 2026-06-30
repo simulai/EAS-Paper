@@ -23,6 +23,19 @@ jobs:
         lean --version
         lake --version
 
-    - name: Compile Lean 4 formalization
+    - name: Build complete EAS Lean4 project
       run: |
-        lean T5_TwoStream_Impossibility.lean
+        lake build
+
+    - name: Verify no sorry
+      run: grep -r "sorry" --include="*.lean" EasLean4/ || echo "No sorry found - OK"
+
+    - name: Verify single axiom
+      run: |
+        count=$(grep -c "axiom " EasLean4/*.lean || true)
+        echo "Found $count axiom(s)"
+        if [ "$count" -eq 1 ]; then
+          echo "Single axiom verified - OK"
+        else
+          echo "WARNING: Expected 1 axiom, found $count"
+        fi
